@@ -5,7 +5,7 @@
 import boto3
 from dateutil.parser import parse
 import datetime
-age = 0
+age = 7
 # aws_profile_name = 'prod'
 def lambda_handler(event, context):
     def days_old(date):
@@ -23,7 +23,7 @@ def lambda_handler(event, context):
         ami_id = ami['ImageId']
         # print ami['ImageId'], ami['CreationDate']
         day_old = days_old(create_date)
-        if day_old == age:
+        if day_old > age:
             print("deleting -> " + ami_id + " - create_date = " + create_date)
             # deregister the AMI
             ec2.deregister_image(ImageId=ami_id)
